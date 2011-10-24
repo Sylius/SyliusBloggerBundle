@@ -1,0 +1,7 @@
+sylius_blogger_post_list:
+    pattern: /list
+    defaults: { _controller: sylius_blogger.controller.frontend.post:listAction }
+
+sylius_blogger_post_show:
+    pattern: /{id}/{slug}
+    defaults: { _controller: sylius_blogger.controller.frontend.post:showAction }

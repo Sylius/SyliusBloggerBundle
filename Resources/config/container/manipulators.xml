@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    
+    <services>
+    	<service id="sylius_blogger.manipulator.post" class="%sylius_blogger.manipulator.post.class%">
+    		<argument type="service" id="sylius_blogger.manager.post" />
+    		<argument type="service" id="sylius_blogger.inflector.slugizer" />
+    	</service>
+    </services>
+    
+</container>

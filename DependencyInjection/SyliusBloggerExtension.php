@@ -62,6 +62,8 @@ class SyliusBloggerExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
+        $container->setAlias('sylius_blogger.blamer.post', $config['services']['blamer']['post']);
+        
         $this->remapParametersNamespaces($config['classes'], $container, array(
             'model'          => 'sylius_blogger.model.%s.class',
             'manipulator'    => 'sylius_blogger.manipulator.%s.class',

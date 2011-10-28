@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
             ->end();
         
         $this->addClassesSection($rootNode);
+        $this->addServicesSection($rootNode);
 
         return $treeBuilder;
     }
@@ -103,6 +104,27 @@ class Configuration implements ConfigurationInterface
                         ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('slugizer')->defaultValue('Sylius\\Bundle\\BloggerBundle\\Inflector\\Slugizer')->end()
+                            ->end()
+                        ->end()
+                    ->end();
+    }
+    
+	/**
+     * Adds `services` section.
+     * 
+     * @param ArrayNodeDefinition $node
+     */
+    private function addServicesSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('services')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('blamer')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('post')->defaultValue('sylius_blogger.blamer.post.nooop')->end()
                             ->end()
                         ->end()
                     ->end();

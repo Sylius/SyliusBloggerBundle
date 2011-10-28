@@ -7,6 +7,7 @@
     <services>
     	<service id="sylius_blogger.manipulator.post" class="%sylius_blogger.manipulator.post.class%">
     		<argument type="service" id="sylius_blogger.manager.post" />
+    		<argument type="service" id="sylius_blogger.blamer.post" />
     		<argument type="service" id="sylius_blogger.inflector.slugizer" />
     	</service>
     </services>

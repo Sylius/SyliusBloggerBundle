@@ -11,6 +11,8 @@
 
 namespace Sylius\Bundle\BloggerBundle\Manipulator;
 
+use Sylius\Bundle\BloggerBundle\Blamer\PostBlamerInterface;
+
 use Sylius\Bundle\BloggerBundle\Model\PostManagerInterface;
 
 use Sylius\Bundle\BloggerBundle\Inflector\SlugizerInterface;
@@ -31,6 +33,13 @@ class PostManipulator implements PostManipulatorInterface
     protected $postManager;
     
     /**
+     * Blamer.
+     * 
+     * @var PostBlamerInterface
+     */
+    protected $postBlamer;
+    
+    /**
      * Slugizer inflector.
      * 
      * @var SlugizerInterface
@@ -42,9 +51,10 @@ class PostManipulator implements PostManipulatorInterface
      * 
      * @param SlugizerInterface $slugizer
      */
-    public function __construct(PostManagerInterface $postManager, SlugizerInterface $slugizer)
+    public function __construct(PostManagerInterface $postManager, PostBlamerInterface $postBlamer, SlugizerInterface $slugizer)
     {
         $this->postManager = $postManager;
+        $this->postBlamer = $postBlamer;
         $this->slugizer = $slugizer;
     }
     
@@ -52,9 +62,10 @@ class PostManipulator implements PostManipulatorInterface
      * {@inheritdoc}
      */
     public function create(PostInterface $post)
-    {        
+    {
         $post->setSlug($this->slugizer->slugize($post->getTitle()));
         
+        $this->postBlamer->blame($post);
         $this->postManager->persistPost($post);
     }
     
@@ -65,6 +76,7 @@ class PostManipulator implements PostManipulatorInterface
     {        
         $post->setSlug($this->slugizer->slugize($post->getTitle()));
         
+        $this->postBlamer->blame($post);
         $this->postManager->persistPost($post);
     }
     

@@ -55,6 +55,7 @@ class SyliusBloggerExtension extends Extension
             'forms',
             'inflectors',
             'manipulators',
+            'blamers'
         );
         
         foreach ($configurations as $basename) {

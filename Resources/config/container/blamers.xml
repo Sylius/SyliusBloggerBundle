@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    
+    <parameters>
+    	<parameter key="sylius_blogger.blamer.post.nooop.class">Sylius\Bundle\BloggerBundle\Blamer\NooopPostBlamer</parameter>
+    	<parameter key="sylius_blogger.blamer.post.signed.class">Sylius\Bundle\BloggerBundle\Blamer\SignedPostBlamer</parameter>
+    </parameters>
+    
+    <services>
+    	<service id="sylius_blogger.blamer.post.nooop" class="%sylius_blogger.blamer.post.nooop.class%" />
+    	<service id="sylius_blogger.blamer.post.signed" class="%sylius_blogger.blamer.post.signed.class%">
+    		<argument type="service" id="security.context" />
+    	</service>
+    </services>
+    
+</container>

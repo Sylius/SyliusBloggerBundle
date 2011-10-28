@@ -14,16 +14,19 @@ namespace Sylius\Bundle\BloggerBundle\Blamer;
 use Sylius\Bundle\BloggerBundle\Model\PostInterface;
 
 /**
- * Interface for post blamer.
+ * Post blamer that does nothing...
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-interface PostBlamerInterface
+class NooopPostBlamer implements PostBlamerInterface
 {
     /**
-     * Sets user or username as post author.
+     * Pufff.
      * 
      * @param PostInterface $post
      */
-    function blame(PostInterface $post);
+    public function blame(PostInterface $post)
+    {
+        // do nothing.
+    }
 }

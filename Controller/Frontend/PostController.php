@@ -41,17 +41,17 @@ class PostController extends ContainerAware
 	/**
      * Lists paginated posts.
      */
-    public function listAction($page = 1)
+    public function listAction()
     {
         $postManager = $this->container->get('sylius_blogger.manager.post');
         $paginator = $postManager->createPaginator();
         
-        $paginator->setCurrentPage($page, true, true);
+        $paginator->setCurrentPage($this->container->get('request')->query->get('page', 1), true, true);
         
         $posts = $paginator->getCurrentPageResults();
         
         return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.twig', array(
-        	'posts' => $posts,
+        	'posts'     => $posts,
         	'paginator' => $paginator
         ));
     }

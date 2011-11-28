@@ -11,6 +11,8 @@
 
 namespace Sylius\Bundle\BloggerBundle\Model;
 
+use Sylius\Bundle\BloggerBundle\Sorting\SorterInterface;
+
 /**
  * Post manager interface.
  * 
@@ -88,12 +90,5 @@ interface PostManagerInterface
     /**
      * Creates a paginator instance.
      */
-    function createPaginator();
-    
-    /**
-     * Creates a paginator instance.
-     * 
-     * @param integer $categoryId Posts category id
-     */
-    function createCategorizedPaginator($categoryId);
+    function createPaginator(SorterInterface $sorter = null);
 }

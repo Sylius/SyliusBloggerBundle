@@ -29,10 +29,19 @@ class PostController extends ContainerAware
      */
     public function listAction()
     {
-    	$posts = $this->container->get('sylius_blogger.manager.post')->findPosts();
-
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:list.html.twig', array(
-        	'posts' => $posts
+    	$postManager = $this->container->get('sylius_blogger.manager.post');
+        
+        $postSorter = $this->container->get('sylius_blogger.sorter.post');
+        
+        $paginator = $postManager->createPaginator($postSorter);    
+        $paginator->setCurrentPage($this->container->get('request')->query->get('page', 1), true, true);
+        
+        $posts = $paginator->getCurrentPageResults();
+        
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:list.html.' . $this->getEngine(), array(
+        	'posts'  => $posts,
+        	'paginator' => $paginator,
+        	'sorter'    => $postSorter
         ));
     }
     
@@ -44,10 +53,10 @@ class PostController extends ContainerAware
         $post = $this->container->get('sylius_blogger.manager.post')->findPost($id);
         
         if (!$post) {
-            throw new NotFoundHttpException('Requested product does not exist.');
+            throw new NotFoundHttpException('Requested post does not exist.');
         }
         
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:show.html.twig', array(
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:show.html.' . $this->getEngine(), array(
         	'post' => $post
         ));
     }
@@ -75,7 +84,7 @@ class PostController extends ContainerAware
             }
         }
         
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:create.html.twig', array(
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:create.html.' . $this->getEngine(), array(
         	'form' => $form->createView()
         ));
     }
@@ -108,7 +117,7 @@ class PostController extends ContainerAware
             }
         }
         
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:update.html.twig', array(
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Backend/Post:update.html.' . $this->getEngine(), array(
         	'form' => $form->createView(),
             'post' => $post
         ));
@@ -129,5 +138,15 @@ class PostController extends ContainerAware
         $this->container->get('sylius_blogger.manipulator.post')->delete($post);
         
         return new RedirectResponse($this->container->get('router')->generate('sylius_blogger_backend_post_list'));
+    }
+    
+    /**
+    * Returns templating engine name.
+    *
+    * @return string
+    */
+    protected function getEngine()
+    {
+        return $this->container->getParameter('sylius_blogger.engine');
     }
 }

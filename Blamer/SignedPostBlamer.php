@@ -32,7 +32,7 @@ class SignedPostBlamer implements PostBlamerInterface
     public function blame(PostInterface $post)
     {
         if (!$post instanceof SignedPostInterface) {
-            throw new InvalidArgumentException('The post must implement SignedPostInterface');
+            throw new InvalidArgumentException('The post must implement Sylius\Bundle\BloggerBundle\Model\SignedPostInterface');
         }
 
         if (null === $this->securityContext->getToken()) {

@@ -13,6 +13,7 @@ namespace Sylius\Bundle\BloggerBundle\Entity;
 
 use Sylius\Bundle\BloggerBundle\Model\PostInterface;
 use Sylius\Bundle\BloggerBundle\Model\PostManager as BasePostManager;
+use Sylius\Bundle\BloggerBundle\Sorting\SorterInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Pagerfanta\Pagerfanta;
@@ -115,27 +116,16 @@ class PostManager extends BasePostManager
 	/**
      * {@inheritdoc}
      */
-    public function createPaginator()
+    public function createPaginator(SorterInterface $sorter = null)
     {
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('p')
             ->from($this->class, 'p')
-            ->orderBy('p.id', 'desc');
-            
-        return new Pagerfanta(new DoctrineORMAdapter($queryBuilder->getQuery()));
-    }
-    
-	/**
-     * {@inheritdoc}
-     */
-    public function createCategorizedPaginator($categoryId)
-    {
-        $queryBuilder = $this->entityManager->createQueryBuilder()
-            ->select('p')
-            ->from($this->class, 'p')
-            ->innerJoin('p.categories', 'c')
-            ->where('c.id = ?1')
-            ->setParameter(1, $categoryId);
+            ->orderBy('p.createdAt', 'DESC');
+        
+        if (null !== $sorter) {
+            $sorter->sort($queryBuilder);
+        }
             
         return new Pagerfanta(new DoctrineORMAdapter($queryBuilder->getQuery()));
     }

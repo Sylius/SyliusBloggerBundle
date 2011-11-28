@@ -33,7 +33,7 @@ class PostController extends ContainerAware
     	    throw new NotFoundHttpException('Requested post does not exist.');
     	}	
         
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:show.html.twig', array(
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:show.html.' . $this->getEngine(), array(
         	'post' => $post
         ));
     }
@@ -50,9 +50,19 @@ class PostController extends ContainerAware
         
         $posts = $paginator->getCurrentPageResults();
         
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.twig', array(
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.' . $this->getEngine(), array(
         	'posts'     => $posts,
         	'paginator' => $paginator
         ));
+    }
+    
+    /**
+    * Returns templating engine name.
+    *
+    * @return string
+    */
+    protected function getEngine()
+    {
+        return $this->container->getParameter('sylius_blogger.engine');
     }
 }

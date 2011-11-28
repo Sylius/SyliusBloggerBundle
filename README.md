@@ -4,10 +4,30 @@ About SyliusBloggerBundle...
 Bundle that adds blogging feature to your application built with Symfony2.
 If you want to categorize posts use [SyliusCatalogBundle](http://github.com/Sylius/SyliusCatalogBundle).
 
+[![Build status...](https://secure.travis-ci.org/Sylius/SyliusBloggerBundle.png)](http://travis-ci.org/Sylius/SyliusBloggerBundle)
+
 Sylius.
 -------
 
 **Sylius** is simple but **end-user and developer friendly** webshop engine built on top of Symfony2. Visit [sylius.org](http://sylius.org).
+
+Testing and build status.
+-------------------------
+
+This bundle uses [travis-ci.org](http://travis-ci.org/Sylius/SyliusBloggerBundle) for CI.
+
+Before running tests, load the dependencies using [Composer](http://packagist.org).
+
+``` bash
+$ wget http://getcomposer.org/composer.phar
+$ php composer.phar install
+```
+
+Now you can test by simply using this command.
+
+``` bash
+$ phpunit
+```
 
 Examples.
 ---------

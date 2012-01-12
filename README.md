@@ -1,5 +1,5 @@
 About SyliusBloggerBundle...
-=================================
+============================
 
 Bundle that adds blogging feature to your application built with Symfony2.
 If you want to categorize posts use [SyliusCatalogBundle](http://github.com/Sylius/SyliusCatalogBundle).
@@ -9,7 +9,12 @@ If you want to categorize posts use [SyliusCatalogBundle](http://github.com/Syli
 Sylius.
 -------
 
-**Sylius** is simple but **end-user and developer friendly** webshop engine built on top of Symfony2. Visit [sylius.org](http://sylius.org).
+**Sylius** is simple but **end-user and developer friendly** webshop engine built on top of Symfony2. [Sylius.org](http://sylius.org).
+
+Demo.
+-----
+
+There is a live demo of this bundle [on Sylius.org](http://sylius.org/sandbox).
 
 Testing and build status.
 -------------------------
@@ -57,7 +62,7 @@ If you want to contribute, and develop this bundle, use the developers mailing l
 Sylius twitter account.
 -----------------------
 
-If you want to keep up with updates, [follow the official Sylius account on twitter](http://twitter.com/_Sylius) 
+If you want to keep up with updates, [follow the official Sylius account on twitter](http://twitter.com/_Sylius)
 or [follow me](http://twitter.com/pjedrzejewski).
 
 Bug tracking.
@@ -78,6 +83,7 @@ And constructed with the following guidelines.
 * Bug fixes and misc changes bump the patch.
 
 For more information on SemVer, please visit [semver.org website](http://semver.org/).
+
 This versioning method is same for all **Sylius** bundles and applications.
 
 License.

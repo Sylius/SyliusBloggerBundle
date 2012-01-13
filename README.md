@@ -43,7 +43,7 @@ It's open sourced github project.
 Documentation.
 --------------
 
-Docs are available [here](https://github.com/Sylius/SyliusBloggerBundle/blob/master/Resources/doc/index.md).
+Docs are available [here](http://sylius.org/docs/bundles/SyliusBloggerBundle.html).
 
 Dependencies.
 -------------

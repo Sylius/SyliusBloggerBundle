@@ -21,22 +21,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class SignedPost extends Post implements SignedPostInterface
 {
     protected $user;
-    
+
     public function getUser()
     {
         return $this->user;
     }
-    
+
     public function setUser(UserInterface $user)
     {
         $this->user = $user;
     }
-    
+
     public function getAuthor()
     {
         return $this->user->getUsername();
     }
-    
+
     public function setAuthor($author)
     {
     }

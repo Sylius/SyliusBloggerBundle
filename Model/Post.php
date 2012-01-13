@@ -13,7 +13,7 @@ namespace Sylius\Bundle\BloggerBundle\Model;
 
 /**
  * Post model.
- * 
+ *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
 abstract class Post implements PostInterface
@@ -25,36 +25,53 @@ abstract class Post implements PostInterface
 
     /**
      * Post title.
+     *
+     * @var string
      */
     protected $title;
-    
+
     /**
      * Slug.
+     *
+     * @var string
      */
     protected $slug;
 
     /**
      * Author.
-     * 
+     *
      * @var string
      */
     protected $author;
-    
+
     /**
      * Content.
+     *
+     * @var string
      */
     protected $content;
-    
+
+    /**
+     * Is published?
+     *
+     * @var Boolean
+     */
+    protected $published;
+
     /**
      * Creation time.
+     *
+     * @var \DateTime
      */
     protected $createdAt;
-    
+
     /**
      * Modification time.
+     *
+     * @var \DateTime
      */
     protected $updatedAt;
-    
+
     /**
      * Constructor.
      * Defines default entity values.
@@ -62,8 +79,9 @@ abstract class Post implements PostInterface
     public function __construct()
     {
         $this->incrementCreatedAt();
+        $this->published = true;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -71,39 +89,39 @@ abstract class Post implements PostInterface
     {
         return $this->id;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function getTitle()
     {
-    	return $this->title;
+        return $this->title;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function setTitle($title)
     {
-    	$this->title = $title;
+        $this->title = $title;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function getSlug()
     {
-    	return $this->slug;
+        return $this->slug;
     }
-    
-	/**
+
+    /**
      * {@inheritdoc}
      */
     public function setSlug($slug)
     {
-    	$this->slug = $slug;
+        $this->slug = $slug;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -111,7 +129,7 @@ abstract class Post implements PostInterface
     {
         return $this->content;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -119,7 +137,7 @@ abstract class Post implements PostInterface
     {
         $this->content = $content;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -127,7 +145,7 @@ abstract class Post implements PostInterface
     {
         return $this->author;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -135,7 +153,17 @@ abstract class Post implements PostInterface
     {
         $this->author = $author;
     }
-    
+
+    public function isPublished()
+    {
+        return $this->published;
+    }
+
+    public function setPublished($published)
+    {
+        $this->published = $published;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -143,7 +171,7 @@ abstract class Post implements PostInterface
     {
         return $this->createdAt;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -152,14 +180,14 @@ abstract class Post implements PostInterface
         $this->createdAt = new \DateTime();
     }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * {@inheritdoc}
      */

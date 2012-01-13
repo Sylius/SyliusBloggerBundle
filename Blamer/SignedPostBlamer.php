@@ -23,12 +23,12 @@ use Sylius\Bundle\BloggerBundle\Model\PostInterface;
 class SignedPostBlamer implements PostBlamerInterface
 {
     protected $securityContext;
-    
+
     public function __construct(SecurityContextInterface $securityContext)
     {
         $this->securityContext = $securityContext;
     }
-    
+
     public function blame(PostInterface $post)
     {
         if (!$post instanceof SignedPostInterface) {

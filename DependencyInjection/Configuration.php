@@ -34,13 +34,13 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('sylius_blogger');
-        
+
         $rootNode
             ->children()
                 ->scalarNode('driver')->isRequired()->end()
                 ->scalarNode('engine')->defaultValue('twig')->end()
             ->end();
-        
+
         $this->addClassesSection($rootNode);
         $this->addServicesSection($rootNode);
 
@@ -49,7 +49,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Adds `classes` section.
-     * 
+     *
      * @param ArrayNodeDefinition $node
      */
     private function addClassesSection(ArrayNodeDefinition $node)
@@ -108,10 +108,10 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end();
     }
-    
-	/**
+
+    /**
      * Adds `services` section.
-     * 
+     *
      * @param ArrayNodeDefinition $node
      */
     private function addServicesSection(ArrayNodeDefinition $node)

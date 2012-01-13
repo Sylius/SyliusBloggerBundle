@@ -16,11 +16,11 @@ use Twig_Extension;
 
 /**
  * Sylius blogger extension.
- * 
+ *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
 class SyliusBloggerExtension extends Twig_Extension
-{   
+{
     /**
      * Returns a list of global functions to add to the existing list.
      *
@@ -32,24 +32,24 @@ class SyliusBloggerExtension extends Twig_Extension
             'sylius_blogger_cut_text'         => new Twig_Function_Method($this, 'cutText'),
         );
     }
-    
+
     /**
      * Cuts the text.
      */
     public function cutText($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false)
     {
         if ($considerHtml) {
-            
+
             if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
                 return $text;
             }
-           
+
             preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
-   
+
             $totalLength = strlen($ending);
             $openTags = array();
             $truncate = '';
-           
+
             foreach ($lines as $lineMatchings) {
 
                 if (!empty($lineMatchings[1])) {
@@ -70,7 +70,7 @@ class SyliusBloggerExtension extends Twig_Extension
 
                     $truncate .= $lineMatchings[1];
                 }
-               
+
 
                 $contentLength = strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $lineMatchings[2]));
                 if ($totalLength + $contentLength> $length) {
@@ -96,7 +96,7 @@ class SyliusBloggerExtension extends Twig_Extension
                     $truncate .= $lineMatchings[2];
                     $totalLength += $contentLength;
                 }
-               
+
                 if($totalLength>= $length) {
                     break;
                 }
@@ -108,26 +108,26 @@ class SyliusBloggerExtension extends Twig_Extension
                 $truncate = substr($text, 0, $length - strlen($ending));
             }
         }
-       
+
         if (!$exact) {
             $spacepos = strrpos($truncate, ' ');
-            
+
             if (isset($spacepos)) {
                 $truncate = substr($truncate, 0, $spacepos);
             }
         }
-       
+
         $truncate .= $ending;
-       
+
         if($considerHtml) {
             foreach ($openTags as $tag) {
                 $truncate .= '</' . $tag . '>';
             }
         }
-       
+
         return $truncate;
     }
-    
+
     /**
      * Returns the name of the extension.
      *

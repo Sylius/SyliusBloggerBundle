@@ -23,21 +23,21 @@ class PostFormType extends AbstractType
 {
     /**
      * Data class.
-     * 
+     *
      * @var string
      */
     protected $dataClass;
-    
+
     /**
      * Constructor.
-     * 
+     *
      * @param string $dataClass
      */
     public function __construct($dataClass)
     {
         $this->dataClass = $dataClass;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -47,9 +47,10 @@ class PostFormType extends AbstractType
             ->add('title', 'text')
             ->add('author', 'text')
             ->add('content', 'textarea')
+            ->add('published', 'checkbox', array('required' => false))
         ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -59,7 +60,7 @@ class PostFormType extends AbstractType
             'data_class' => $this->dataClass,
         );
     }
-    
+
     /**
      * {@inheritdoc}
      */

@@ -22,7 +22,7 @@ class NooopPostBlamer implements PostBlamerInterface
 {
     /**
      * Pufff.
-     * 
+     *
      * @param PostInterface $post
      */
     public function blame(PostInterface $post)

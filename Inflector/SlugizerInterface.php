@@ -20,7 +20,7 @@ interface SlugizerInterface
 {
     /**
      * Slugizes a string.
-     * 
+     *
      * @param string $string
      */
     function slugize($string);

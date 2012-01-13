@@ -23,7 +23,7 @@ class SignedPostFormType extends PostFormType
     public function buildForm(FormBuilder $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        
+
         $builder
             ->remove('author')
         ;

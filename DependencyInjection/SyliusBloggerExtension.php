@@ -19,7 +19,7 @@ use Symfony\Component\Config\FileLocator;
 
 /**
  * Blogger extension.
- * 
+ *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
 class SyliusBloggerExtension extends Extension
@@ -39,17 +39,17 @@ class SyliusBloggerExtension extends Extension
         if (!in_array($config['driver'], array('ORM'))) {
             throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported for this extension.', $config['driver']));
         }
-        
+
         if (!in_array($config['engine'], array('php', 'twig'))) {
             throw new \InvalidArgumentException(sprintf('Engine "%s" is unsupported for this extension.', $config['engine']));
         }
-        
+
         $loader->load(sprintf('driver/%s.xml', $config['driver']));
         $loader->load(sprintf('engine/%s.xml', $config['engine']));
-        
+
         $container->setParameter('sylius_blogger.driver', $config['driver']);
         $container->setParameter('sylius_blogger.engine', $config['engine']);
-        
+
         $configurations = array(
             'controllers',
             'forms',
@@ -57,32 +57,32 @@ class SyliusBloggerExtension extends Extension
             'manipulators',
             'blamers'
         );
-        
+
         foreach ($configurations as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
         $container->setAlias('sylius_blogger.blamer.post', $config['services']['blamer']['post']);
-        
+
         $this->remapParametersNamespaces($config['classes'], $container, array(
             'model'          => 'sylius_blogger.model.%s.class',
             'manipulator'    => 'sylius_blogger.manipulator.%s.class',
             'inflector'      => 'sylius_blogger.inflector.%s.class'
         ));
-        
+
         $this->remapParametersNamespaces($config['classes']['controller'], $container, array(
             'frontend'	   => 'sylius_blogger.controller.frontend.%s.class',
             'backend'      => 'sylius_blogger.controller.backend.%s.class',
         ));
-        
+
         $this->remapParametersNamespaces($config['classes']['form'], $container, array(
             'type'              => 'sylius_blogger.form.type.%s.class',
         ));
     }
-    
-	/**
+
+    /**
      * Remap parameters.
-     * 
+     *
      * @param $config
      * @param ContainerBuilder $container
      * @param $map
@@ -98,7 +98,7 @@ class SyliusBloggerExtension extends Extension
 
     /**
      * Remap parameter namespaces.
-     * 
+     *
      * @param $config
      * @param ContainerBuilder $container
      * @param $map

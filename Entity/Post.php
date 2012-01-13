@@ -15,9 +15,9 @@ use Sylius\Bundle\BloggerBundle\Model\Post as BasePost;
 
 /**
  * Post entity.
- * 
+ *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
 class Post extends BasePost
-{    
+{
 }

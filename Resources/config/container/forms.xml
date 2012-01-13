@@ -6,8 +6,8 @@
 
     <services>
         <service id="sylius_blogger.form.type.post" class="%sylius_blogger.form.type.post.class%">
-        	<argument>%sylius_blogger.model.post.class%</argument>
-        	<tag name="form.type" alias="sylius_blogger_post" />
+            <argument>%sylius_blogger.model.post.class%</argument>
+            <tag name="form.type" alias="sylius_blogger_post" />
         </service>
     </services>
 

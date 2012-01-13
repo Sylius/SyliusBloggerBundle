@@ -22,7 +22,7 @@ interface PostBlamerInterface
 {
     /**
      * Sets user or username as post author.
-     * 
+     *
      * @param PostInterface $post
      */
     function blame(PostInterface $post);

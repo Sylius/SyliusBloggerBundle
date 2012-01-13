@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Post controller.
- * 
+ *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
 class PostController extends ContainerAware
@@ -27,35 +27,35 @@ class PostController extends ContainerAware
      */
     public function showAction($slug, $id)
     {
-    	$post = $this->container->get('sylius_blogger.manager.post')->findPostBy(array('slug' => $slug, 'id' => $id));
-    	
-    	if (!$post) {
-    	    throw new NotFoundHttpException('Requested post does not exist.');
-    	}	
-        
+        $post = $this->container->get('sylius_blogger.manager.post')->findPostBy(array('slug' => $slug, 'id' => $id));
+
+        if (!$post || !$post->isPublished()) {
+            throw new NotFoundHttpException('Requested post does not exist.');
+        }
+
         return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:show.html.' . $this->getEngine(), array(
-        	'post' => $post
+            'post' => $post
         ));
     }
-    
-	/**
+
+    /**
      * Lists paginated posts.
      */
     public function listAction()
     {
         $postManager = $this->container->get('sylius_blogger.manager.post');
         $paginator = $postManager->createPaginator();
-        
+
         $paginator->setCurrentPage($this->container->get('request')->query->get('page', 1), true, true);
-        
+
         $posts = $paginator->getCurrentPageResults();
-        
+
         return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.' . $this->getEngine(), array(
-        	'posts'     => $posts,
-        	'paginator' => $paginator
+            'posts'     => $posts,
+            'paginator' => $paginator
         ));
     }
-    
+
     /**
     * Returns templating engine name.
     *

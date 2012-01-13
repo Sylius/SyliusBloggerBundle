@@ -1,20 +1,27 @@
 sylius_blogger_backend_post_create:
     pattern: /create
     defaults: { _controller: sylius_blogger.controller.backend.post:createAction }
-    
+
 sylius_blogger_backend_post_update:
     pattern: /{id}/update
     defaults: { _controller: sylius_blogger.controller.backend.post:updateAction }
-    
+
 sylius_blogger_backend_post_delete:
     pattern: /{id}/delete
     defaults: { _controller: sylius_blogger.controller.backend.post:deleteAction }
-    
+
+sylius_blogger_backend_post_publish:
+    pattern: /{id}/publish
+    defaults: { _controller: sylius_blogger.controller.backend.post:publishAction }
+
+sylius_blogger_backend_post_unpublish:
+    pattern: /{id}/unpublish
+    defaults: { _controller: sylius_blogger.controller.backend.post:unpublishAction }
+
 sylius_blogger_backend_post_list:
     pattern: /list
     defaults: { _controller: sylius_blogger.controller.backend.post:listAction }
-    
+
 sylius_blogger_backend_post_show:
     pattern: /{id}
     defaults: { _controller: sylius_blogger.controller.backend.post:showAction }
-    

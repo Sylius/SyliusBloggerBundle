@@ -28,32 +28,32 @@ class PostManager extends BasePostManager
 {
     /**
      * Entity manager.
-     * 
+     *
      * @var EntityManager
      */
     protected $entityManager;
-    
+
     /**
      * Entity repository.
-     * 
+     *
      * @var EntityRepository
      */
     protected $repository;
-    
+
     /**
      * Constructor.
-     * 
+     *
      * @param EntityManager	 $entityManager
      * @param string	 	 $class
      */
     public function __construct(EntityManager $entityManager, $class)
     {
         parent::__construct($class);
-        
+
         $this->entityManager = $entityManager;
         $this->repository = $this->entityManager->getRepository($this->getClass());
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -62,7 +62,7 @@ class PostManager extends BasePostManager
         $class = $this->getClass();
         return new $class;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -71,7 +71,7 @@ class PostManager extends BasePostManager
         $this->entityManager->persist($post);
         $this->entityManager->flush();
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -80,7 +80,7 @@ class PostManager extends BasePostManager
         $this->entityManager->remove($post);
         $this->entityManager->flush();
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -88,7 +88,7 @@ class PostManager extends BasePostManager
     {
         return $this->repository->find($id);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -96,7 +96,7 @@ class PostManager extends BasePostManager
     {
         return $this->repository->findOneBy($criteria);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -104,7 +104,7 @@ class PostManager extends BasePostManager
     {
         return $this->repository->findAll();
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -112,8 +112,8 @@ class PostManager extends BasePostManager
     {
         return $this->repository->findBy($criteria);
     }
-    
-	/**
+
+    /**
      * {@inheritdoc}
      */
     public function createPaginator(SorterInterface $sorter = null)
@@ -121,12 +121,13 @@ class PostManager extends BasePostManager
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('p')
             ->from($this->class, 'p')
+            ->where('p.published = true')
             ->orderBy('p.createdAt', 'DESC');
-        
+
         if (null !== $sorter) {
             $sorter->sort($queryBuilder);
         }
-            
+
         return new Pagerfanta(new DoctrineORMAdapter($queryBuilder->getQuery()));
     }
 }

@@ -23,21 +23,21 @@ class PostTest extends \PHPUnit_Framework_TestCase
         $post->setTitle('testing post');
         $this->assertEquals('testing post', $post->getTitle());
     }
-    
+
     public function testSlug()
     {
         $post = $this->getPost();
         $this->assertNull($post->getSlug());
-    
+
         $post->setSlug('testing-post');
         $this->assertEquals('testing-post', $post->getSlug());
     }
-    
+
     public function testContent()
     {
         $post = $this->getPost();
         $this->assertNull($post->getContent());
-    
+
         $post->setContent('testing post...');
         $this->assertEquals('testing post...', $post->getContent());
     }

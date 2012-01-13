@@ -17,12 +17,12 @@ use Symfony\Component\EventDispatcher\Event;
 final class FilterPostEvent extends Event
 {
     private $post;
-    
+
     public function __construct(PostInterface $post)
     {
         $this->post = $post;
     }
-    
+
     public function getPost()
     {
         return $this->post;

@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<div class="page-header"> 
-    <h1>Updating post.<small> Use this form to modify existing post...</small></h1> 
-</div> 
+<div class="page-header">
+    <h1>Updating post.<small> Use this form to modify existing post...</small></h1>
+</div>
 
 <form action="{{ path('sylius_blogger_backend_post_update', {'id': post.id}) }}" method="post">
 
@@ -35,6 +35,6 @@
 <input type="submit" class="btn large primary" value="save changes">
 </div>
 
-</form>  
+</form>
 
 {% endblock %}

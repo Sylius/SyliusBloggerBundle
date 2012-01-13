@@ -2,15 +2,15 @@
 
 {% block content %}
 
-<div class="page-header"> 
-    <h1>Posts list.<small> Manage posts on blog.</small></h1> 
-</div> 
+<div class="page-header">
+    <h1>Posts list.<small> Manage posts on blog.</small></h1>
+</div>
 
 <div class="well">
 <a href="{{ path('sylius_blogger_backend_post_create') }}" class="btn large primary">create post</a>
 </div>
 
-{% if posts %}       
+{% if posts %}
 <table>
     <thead>
         <tr>

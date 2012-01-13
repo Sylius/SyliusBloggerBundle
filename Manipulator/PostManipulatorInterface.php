@@ -15,29 +15,32 @@ use Sylius\Bundle\BloggerBundle\Model\PostInterface;
 
 /**
  * Post manipulator interface.
- * 
+ *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
 interface PostManipulatorInterface
 {
     /**
      * Creates a post.
-     * 
+     *
      * @param PostInterface $post
      */
-    function create(PostInterface $post); 
+    function create(PostInterface $post);
 
     /**
      * Updates a post.
-     * 
+     *
      * @param PostInterface $post
      */
-    function update(PostInterface $post); 
-    
+    function update(PostInterface $post);
+
     /**
      * Deletes a post.
-     * 
+     *
      * @param PostInterface $post
      */
-    function delete(PostInterface $post); 
+    function delete(PostInterface $post);
+
+    function publish(PostInterface $post);
+    function unpublish(PostInterface $post);
 }

@@ -36,7 +36,7 @@ class SyliusBloggerExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/container'));
 
-        if (!in_array($config['driver'], array('ORM'))) {
+        if (!in_array($config['driver'], array('doctrine/orm'))) {
             throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported for this extension.', $config['driver']));
         }
 
@@ -49,6 +49,9 @@ class SyliusBloggerExtension extends Extension
 
         $container->setParameter('sylius_blogger.driver', $config['driver']);
         $container->setParameter('sylius_blogger.engine', $config['engine']);
+
+        $container->setParameter('sylius_blogger.pagination', !$config['pagination']['disable']);
+        $container->setParameter('sylius_blogger.pagination.mpp', $config['pagination']['mpp']);
 
         $configurations = array(
             'controllers',
@@ -71,7 +74,7 @@ class SyliusBloggerExtension extends Extension
         ));
 
         $this->remapParametersNamespaces($config['classes']['controller'], $container, array(
-            'frontend'	   => 'sylius_blogger.controller.frontend.%s.class',
+            'frontend'       => 'sylius_blogger.controller.frontend.%s.class',
             'backend'      => 'sylius_blogger.controller.backend.%s.class',
         ));
 

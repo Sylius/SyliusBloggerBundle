@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormBuilder;
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-class PostFormType extends AbstractType
+class PostType extends AbstractType
 {
     /**
      * Data class.

@@ -11,8 +11,8 @@
 
 namespace Sylius\Bundle\BloggerBundle\Tests\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Sylius\Bundle\BloggerBundle\DependencyInjection\SyliusBloggerExtension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
 
 class SyliusBloggerExtensionTest extends \PHPUnit_Framework_TestCase
@@ -69,7 +69,7 @@ class SyliusBloggerExtensionTest extends \PHPUnit_Framework_TestCase
     protected function getEmptyConfig()
     {
         $yaml = <<<EOF
-driver: ORM
+driver: doctrine/orm
 classes:
     model:
         post: Sylius\Bundle\BloggerBundle\Entity\DefaultPost

@@ -44,16 +44,22 @@ class PostController extends ContainerAware
     public function listAction()
     {
         $postManager = $this->container->get('sylius_blogger.manager.post');
-        $paginator = $postManager->createPaginator();
 
-        $paginator->setCurrentPage($this->container->get('request')->query->get('page', 1), true, true);
+        if ($this->container->getParameter('sylius_blogger.pagination')) {
+            $paginator = $postManager->createPaginator();
+            $paginator->setCurrentPage($this->container->get('request')->query->get('page', 1), true, true);
+            $paginator->setMaxPerPage($this->container->getParameter('sylius_blogger.pagination.mpp'));
 
-        $posts = $paginator->getCurrentPageResults();
+            $parameters['paginator'] = $paginator;
 
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.' . $this->getEngine(), array(
-            'posts'     => $posts,
-            'paginator' => $paginator
-        ));
+            $posts = $paginator->getCurrentPageResults();
+        } else {
+            $posts = $postManager->findPosts();
+        }
+
+        $parameters['posts'] = $posts;
+
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.' . $this->getEngine(), $parameters);
     }
 
     /**

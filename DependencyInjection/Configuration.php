@@ -39,6 +39,13 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('driver')->isRequired()->end()
                 ->scalarNode('engine')->defaultValue('twig')->end()
+                ->arrayNode('pagination')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('disable')->defaultValue(false)->end()
+                        ->scalarNode('mpp')->defaultValue(10)->end()
+                    ->end()
+                ->end()
             ->end();
 
         $this->addClassesSection($rootNode);
@@ -89,7 +96,7 @@ class Configuration implements ConfigurationInterface
                                 ->arrayNode('type')
                                     ->addDefaultsIfNotSet()
                                     ->children()
-                                        ->scalarNode('post')->defaultValue('Sylius\\Bundle\\BloggerBundle\\Form\\Type\\PostFormType')->end()
+                                        ->scalarNode('post')->defaultValue('Sylius\\Bundle\\BloggerBundle\\Form\\Type\\PostType')->end()
                                     ->end()
                                 ->end()
                             ->end()

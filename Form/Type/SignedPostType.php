@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormBuilder;
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-class SignedPostFormType extends PostFormType
+class SignedPostType extends PostType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {

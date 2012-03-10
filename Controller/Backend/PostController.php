@@ -113,7 +113,9 @@ class PostController extends ContainerAware
                 $this->container->get('event_dispatcher')->dispatch(SyliusBloggerEvents::POST_UPDATE, new FilterPostEvent($post));
                 $this->container->get('sylius_blogger.manipulator.post')->update($post);
 
-                return new RedirectResponse($this->container->get('router')->generate('sylius_blogger_backend_post_list'));
+                return new RedirectResponse($this->container->get('router')->generate('sylius_blogger_backend_post_show', array(
+                    'id' => $post->getId()
+                )));
             }
         }
 

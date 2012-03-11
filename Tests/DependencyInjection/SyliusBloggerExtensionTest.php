@@ -15,6 +15,11 @@ use Sylius\Bundle\BloggerBundle\DependencyInjection\SyliusBloggerExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
 
+/**
+ * DIC extension test.
+ *
+ * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
+ */
 class SyliusBloggerExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -53,7 +58,7 @@ class SyliusBloggerExtensionTest extends \PHPUnit_Framework_TestCase
     /**
     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
     */
-    public function testUserLoadThrowsExceptionUnlessProductModelClassSet()
+    public function testUserLoadThrowsExceptionUnlessPostModelClassSet()
     {
         $loader = new SyliusBloggerExtension();
         $config = $this->getEmptyConfig();
@@ -62,8 +67,6 @@ class SyliusBloggerExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * getEmptyConfig
-     *
      * @return array
      */
     protected function getEmptyConfig()
@@ -72,7 +75,7 @@ class SyliusBloggerExtensionTest extends \PHPUnit_Framework_TestCase
 driver: doctrine/orm
 classes:
     model:
-        post: Sylius\Bundle\BloggerBundle\Entity\DefaultPost
+        post: Sylius\Bundle\BloggerBundle\Entity\Post
 EOF;
         $parser = new Parser();
 

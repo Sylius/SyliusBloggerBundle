@@ -15,10 +15,9 @@ use Sylius\Bundle\BloggerBundle\EventDispatcher\Event\FilterPostEvent;
 use Sylius\Bundle\BloggerBundle\EventDispatcher\SyliusBloggerEvents;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
 
 /**
  * Command for console that deletes post.
@@ -28,7 +27,7 @@ use Symfony\Component\Console\Output\Output;
 class DeletePostCommand extends ContainerAwareCommand
 {
     /**
-     * @see Symfony\Component\Console\Command.Command::configure()
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -43,11 +42,12 @@ The <info>sylius:blogger:post:delete</info> command deletes a post.
 
     <info>php sylius/console sylius:blogger:post:delete 24</info>
 EOT
-            );
+            )
+        ;
     }
 
     /**
-     * @see Symfony\Component\Console\Command.Command::execute()
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -60,11 +60,11 @@ EOT
         $this->getContainer()->get('event_dispatcher')->dispatch(SyliusBloggerEvents::POST_DELETE, new FilterPostEvent($post));
         $this->getContainer()->get('sylius_blogger.manipulator.post')->delete($post);
 
-        $output->writeln(sprintf('<info>[Sylius:Blogger]</info> Deleted post with id: <comment>%s</comment>', $input->getArgument('id')));
+        $output->writeln(sprintf('<info>[Sylius:Blogger]</info> Deleted post with id: <comment>%s</comment>.', $input->getArgument('id')));
     }
 
     /**
-     * @see Symfony\Component\Console\Command.Command::interact()
+     * {@inheritdoc}
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {

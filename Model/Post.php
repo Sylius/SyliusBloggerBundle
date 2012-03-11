@@ -177,7 +177,7 @@ abstract class Post implements PostInterface
      */
     public function incrementCreatedAt()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTime("now");
     }
 
     /**
@@ -193,6 +193,6 @@ abstract class Post implements PostInterface
      */
     public function incrementUpdatedAt()
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new \DateTime("now");
     }
 }

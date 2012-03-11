@@ -64,6 +64,7 @@ class PostManipulator implements PostManipulatorInterface
     public function create(PostInterface $post)
     {
         $post->setSlug($this->slugizer->slugize($post->getTitle()));
+        $post->incrementCreatedAt();
 
         $this->postBlamer->blame($post);
         $this->postManager->persistPost($post);
@@ -75,6 +76,7 @@ class PostManipulator implements PostManipulatorInterface
     public function update(PostInterface $post)
     {
         $post->setSlug($this->slugizer->slugize($post->getTitle()));
+        $post->incrementUpdatedAt();
 
         $this->postBlamer->blame($post);
         $this->postManager->persistPost($post);

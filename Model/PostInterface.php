@@ -107,4 +107,6 @@ interface PostInterface
      * @return \DateTime
      */
     function getUpdatedAt();
+
+    function incrementUpdatedAt();
 }

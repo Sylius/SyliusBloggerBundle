@@ -21,6 +21,8 @@ Features
 ### Planned or in progress
 
 * Viewing posts by date.
+* RSS feed support.
+* SEO support, adding meta description and keywords to post model.
 * Doctrine MongoDB ODM driver.
 * Doctrine CouchDB ODM driver. `*`
 * Propel driver. `*`

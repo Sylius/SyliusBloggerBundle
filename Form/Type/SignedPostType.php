@@ -20,6 +20,9 @@ use Symfony\Component\Form\FormBuilder;
  */
 class SignedPostType extends PostType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilder $builder, array $options)
     {
         parent::buildForm($builder, $options);

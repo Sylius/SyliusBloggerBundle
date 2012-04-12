@@ -11,11 +11,12 @@
 
 namespace Sylius\Bundle\BloggerBundle\DependencyInjection;
 
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Sylius\Bundle\BloggerBundle\SyliusBloggerBundle;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Blogger extension.
@@ -25,7 +26,7 @@ use Symfony\Component\Config\FileLocator;
 class SyliusBloggerExtension extends Extension
 {
     /**
-     * @see Extension/Symfony\Component\DependencyInjection\Extension.ExtensionInterface::load()
+     * {@inheritdoc}
      */
     public function load(array $config, ContainerBuilder $container)
     {
@@ -36,7 +37,7 @@ class SyliusBloggerExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/container'));
 
-        if (!in_array($config['driver'], array('doctrine/orm'))) {
+        if (!in_array($config['driver'], SyliusBloggerBundle::getSupportedDrivers())) {
             throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported for this extension.', $config['driver']));
         }
 
@@ -54,11 +55,11 @@ class SyliusBloggerExtension extends Extension
         $container->setParameter('sylius_blogger.pagination.mpp', $config['pagination']['mpp']);
 
         $configurations = array(
+            'blamers',
             'controllers',
             'forms',
             'inflectors',
-            'manipulators',
-            'blamers'
+            'manipulators'
         );
 
         foreach ($configurations as $basename) {
@@ -68,27 +69,27 @@ class SyliusBloggerExtension extends Extension
         $container->setAlias('sylius_blogger.blamer.post', $config['services']['blamer']['post']);
 
         $this->remapParametersNamespaces($config['classes'], $container, array(
-            'model'          => 'sylius_blogger.model.%s.class',
-            'manipulator'    => 'sylius_blogger.manipulator.%s.class',
-            'inflector'      => 'sylius_blogger.inflector.%s.class'
+            'inflector'   => 'sylius_blogger.inflector.%s.class',
+            'manipulator' => 'sylius_blogger.manipulator.%s.class',
+            'model'       => 'sylius_blogger.model.%s.class'
         ));
 
         $this->remapParametersNamespaces($config['classes']['controller'], $container, array(
-            'frontend'       => 'sylius_blogger.controller.frontend.%s.class',
-            'backend'      => 'sylius_blogger.controller.backend.%s.class',
+            'backend'  => 'sylius_blogger.controller.backend.%s.class',
+            'frontend' => 'sylius_blogger.controller.frontend.%s.class'
         ));
 
         $this->remapParametersNamespaces($config['classes']['form'], $container, array(
-            'type'              => 'sylius_blogger.form.type.%s.class',
+            'type' => 'sylius_blogger.form.type.%s.class',
         ));
     }
 
     /**
      * Remap parameters.
      *
-     * @param $config
+     * @param array            $config
      * @param ContainerBuilder $container
-     * @param $map
+     * @param array            $map
      */
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
     {
@@ -102,9 +103,9 @@ class SyliusBloggerExtension extends Extension
     /**
      * Remap parameter namespaces.
      *
-     * @param $config
+     * @param array            $config
      * @param ContainerBuilder $container
-     * @param $map
+     * @param array            $map
      */
     protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
     {

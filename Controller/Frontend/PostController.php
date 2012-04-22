@@ -13,6 +13,8 @@ namespace Sylius\Bundle\BloggerBundle\Controller\Frontend;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -49,7 +51,7 @@ class PostController extends ContainerAware
      *
      * @return Response
      */
-    public function listAction(Requets $request)
+    public function listAction(Request $request)
     {
         $postManager = $this->container->get('sylius_blogger.manager.post');
 

@@ -13,20 +13,20 @@ Features
 * Base support for many different persistence layers. Currently only Doctrine ORM driver is implemented.
 * Basic controllers, models, events and general architecture for blogging.
 * Flexible post blamers, that use Symfony2 security to define post author.
+* Pretty slug generation thanks to [DoctrineExtensions](http://github.com/l3pp4rd/DoctrineExtensions).
 * Quick and easy integration with [SyliusCategorizerBundle](http://github.com/Sylius/SyliusCategorizerBundle) to have posts categorized.
 * It uses [Pagerfanta](http://github.com/whiteoctober/Pagerfanta) to paginate over the posts, but this can be disabled.
 * Thanks to awesome [Symfony2](http://symfony.com) everything is configurable and extensible.
-* Unit tested. [![Build status...](https://secure.travis-ci.org/Sylius/SyliusBloggerBundle.png)](http://travis-ci.org/Sylius/SyliusBloggerBundle)
 
 ### Planned or in progress
 
+* More unit tests. [![Build status...](https://secure.travis-ci.org/Sylius/SyliusBloggerBundle.png)](http://travis-ci.org/Sylius/SyliusBloggerBundle)
 * Viewing posts by date.
 * RSS feed support.
 * SEO, adding meta description and keywords to post model.
 * Doctrine MongoDB ODM driver.
 * Doctrine CouchDB ODM driver. `*`
 * Propel driver. `*`
-
 `*` - wishlist, would love to see a contribution.
 
 Sylius

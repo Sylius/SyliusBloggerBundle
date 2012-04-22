@@ -24,30 +24,38 @@ class PostController extends ContainerAware
 {
     /**
      * Shows single post.
+     *
+     * @param string $slug
+     *
+     * @return Response
      */
-    public function showAction($slug, $id)
+    public function showAction($slug)
     {
-        $post = $this->container->get('sylius_blogger.manager.post')->findPostBy(array('slug' => $slug, 'id' => $id));
+        $post = $this->container->get('sylius_blogger.manager.post')->findPostBy(array('slug' => $slug));
 
         if (!$post || !$post->isPublished()) {
             throw new NotFoundHttpException('Requested post does not exist.');
         }
 
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:show.html.' . $this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:show.html.'.$this->getEngine(), array(
             'post' => $post
         ));
     }
 
     /**
      * Lists paginated posts.
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function listAction()
+    public function listAction(Requets $request)
     {
         $postManager = $this->container->get('sylius_blogger.manager.post');
 
         if ($this->container->getParameter('sylius_blogger.pagination')) {
             $paginator = $postManager->createPaginator();
-            $paginator->setCurrentPage($this->container->get('request')->query->get('page', 1), true, true);
+            $paginator->setCurrentPage($request->query->get('page', 1), true, true);
             $paginator->setMaxPerPage($this->container->getParameter('sylius_blogger.pagination.mpp'));
 
             $parameters['paginator'] = $paginator;
@@ -59,14 +67,14 @@ class PostController extends ContainerAware
 
         $parameters['posts'] = $posts;
 
-        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.' . $this->getEngine(), $parameters);
+        return $this->container->get('templating')->renderResponse('SyliusBloggerBundle:Frontend/Post:list.html.'.$this->getEngine(), $parameters);
     }
 
     /**
-    * Returns templating engine name.
-    *
-    * @return string
-    */
+     * Returns templating engine name.
+     *
+     * @return string
+     */
     protected function getEngine()
     {
         return $this->container->getParameter('sylius_blogger.engine');

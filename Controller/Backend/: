@@ -171,7 +171,7 @@ class PostController extends ContainerAware
      */
     public function unpublishAction($id)
     {
-        $post = $this->findPostOr404($id);
+        $post = $this->findPostOr404($id)
 
         if ($post->isPublished()) {
             $this->container->get('event_dispatcher')->dispatch(SyliusBloggerEvents::POST_UNPUBLISH, new FilterPostEvent($post));
@@ -179,25 +179,6 @@ class PostController extends ContainerAware
         }
 
         return new RedirectResponse($this->container->get('router')->generate('sylius_blogger_backend_post_list'));
-    }
-
-    /**
-     * Tries to find post by id.
-     * Throws 404 exception when not found.
-     *
-     * @param mixed $id
-     *
-     * @return PostInterface
-     *
-     * @throws NotFoundHttpException
-     */
-    protected function findPostOr404($id)
-    {
-        if (!$post = $this->container->get('sylius_blogger.manager.post')->findPost($id)) {
-            throw new NotFoundHttpException('Requested post does not exist');
-        }
-
-        return $post;
     }
 
     /**

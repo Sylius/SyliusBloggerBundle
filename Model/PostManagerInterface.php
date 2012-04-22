@@ -28,6 +28,14 @@ interface PostManagerInterface
     function createPost();
 
     /**
+     * Creates a paginator instance.
+     *
+     * @param SorterInterface $sorter
+     * @param Boolean         $filterNotPublished
+     */
+    function createPaginator(SorterInterface $sorter = null, $filterNotPublished = true);
+
+    /**
      * Persist post.
      *
      * @param PostInterface
@@ -78,9 +86,4 @@ interface PostManagerInterface
      * @return string
      */
     function getClass();
-
-    /**
-     * Creates a paginator instance.
-     */
-    function createPaginator(SorterInterface $sorter = null);
 }

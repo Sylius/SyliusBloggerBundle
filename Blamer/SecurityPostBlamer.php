@@ -27,6 +27,11 @@ class SecurityPostBlamer implements PostBlamerInterface
      */
     protected $securityContext;
 
+    /**
+     * Constructor.
+     *
+     * @param SecurityContextInterface $securityContext
+     */
     public function __construct(SecurityContextInterface $securityContext)
     {
         $this->securityContext = $securityContext;

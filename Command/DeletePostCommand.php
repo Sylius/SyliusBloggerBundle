@@ -16,7 +16,6 @@ use Sylius\Bundle\BloggerBundle\EventDispatcher\SyliusBloggerEvents;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -37,7 +36,8 @@ class DeletePostCommand extends ContainerAwareCommand
             ->setDefinition(array(
                 new InputArgument('id', InputArgument::REQUIRED, 'The post id'),
             ))
-            ->setHelp(<<<EOT
+            ->setHelp(
+<<<EOT
 The <info>sylius:blogger:post:delete</info> command deletes a post.
 
     <info>php sylius/console sylius:blogger:post:delete 24</info>

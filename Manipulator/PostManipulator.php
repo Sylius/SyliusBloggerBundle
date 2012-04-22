@@ -12,11 +12,8 @@
 namespace Sylius\Bundle\BloggerBundle\Manipulator;
 
 use Sylius\Bundle\BloggerBundle\Blamer\PostBlamerInterface;
-
-use Sylius\Bundle\BloggerBundle\Model\PostManagerInterface;
-
-use Sylius\Bundle\BloggerBundle\Inflector\SlugizerInterface;
 use Sylius\Bundle\BloggerBundle\Model\PostInterface;
+use Sylius\Bundle\BloggerBundle\Model\PostManagerInterface;
 
 /**
  * Post manipulator.
@@ -40,22 +37,15 @@ class PostManipulator implements PostManipulatorInterface
     protected $postBlamer;
 
     /**
-     * Slugizer inflector.
-     *
-     * @var SlugizerInterface
-     */
-    protected $slugizer;
-
-    /**
      * Constructor.
      *
-     * @param SlugizerInterface $slugizer
+     * @param PostManagerInterface $postManager
+     * @param PostBlamerInterface  $postBlamer
      */
-    public function __construct(PostManagerInterface $postManager, PostBlamerInterface $postBlamer, SlugizerInterface $slugizer)
+    public function __construct(PostManagerInterface $postManager, PostBlamerInterface $postBlamer)
     {
         $this->postManager = $postManager;
         $this->postBlamer = $postBlamer;
-        $this->slugizer = $slugizer;
     }
 
     /**
@@ -63,9 +53,6 @@ class PostManipulator implements PostManipulatorInterface
      */
     public function create(PostInterface $post)
     {
-        $post->setSlug($this->slugizer->slugize($post->getTitle()));
-        $post->incrementCreatedAt();
-
         $this->postBlamer->blame($post);
         $this->postManager->persistPost($post);
     }
@@ -75,9 +62,6 @@ class PostManipulator implements PostManipulatorInterface
      */
     public function update(PostInterface $post)
     {
-        $post->setSlug($this->slugizer->slugize($post->getTitle()));
-        $post->incrementUpdatedAt();
-
         $this->postBlamer->blame($post);
         $this->postManager->persistPost($post);
     }
@@ -90,12 +74,18 @@ class PostManipulator implements PostManipulatorInterface
         $this->postManager->removePost($post);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function publish(PostInterface $post)
     {
         $post->setPublished(true);
         $this->update($post);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function unpublish(PostInterface $post)
     {
         $post->setPublished(false);

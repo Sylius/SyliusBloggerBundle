@@ -21,9 +21,16 @@ interface PostInterface
     /**
      * Returns post id.
      *
-     * @return integer
+     * @return mixed
      */
     function getId();
+
+    /**
+     * Set post id.
+     *
+     * @param mixed $id
+     */
+    function setId($id);
 
     /**
      * Returns post title.
@@ -84,7 +91,18 @@ interface PostInterface
      */
     function setAuthor($author);
 
+    /**
+     * Is published?
+     *
+     * @return Boolean
+     */
     function isPublished();
+
+    /**
+     * Set published.
+     *
+     * @param Boolean $published
+     */
     function setPublished($published);
 
     /**
@@ -95,9 +113,14 @@ interface PostInterface
     function getCreatedAt();
 
     /**
-     * Increments creation time.
+     * Set creation time.
      *
-     * @return null
+     * @param DateTime $createdAt
+     */
+    function setCreatedAt(\DateTime $createdAt);
+
+    /**
+     * Increments creation time.
      */
     function incrementCreatedAt();
 
@@ -108,5 +131,15 @@ interface PostInterface
      */
     function getUpdatedAt();
 
+    /**
+     * Set update time.
+     *
+     * @param \DateTime $updatedAt
+     */
+    function setUpdatedAt(\DateTime $updatedAt);
+
+    /**
+     * Set update time to now.
+     */
     function incrementUpdatedAt();
 }

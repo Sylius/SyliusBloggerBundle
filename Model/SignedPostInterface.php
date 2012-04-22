@@ -20,6 +20,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 interface SignedPostInterface extends PostInterface
 {
-    function setUser(UserInterface $user);
+    /**
+     * Get user.
+     *
+     * @return UserInterface
+     */
     function getUser();
+
+    /**
+     * Set user.
+     *
+     * @param UserInterface $user
+     */
+    function setUser(UserInterface $user);
 }

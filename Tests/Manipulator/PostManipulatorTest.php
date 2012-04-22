@@ -13,47 +13,15 @@ namespace Sylius\Bundle\BloggerBundle\Tests\Manipulator;
 
 use Sylius\Bundle\BloggerBundle\Manipulator\PostManipulator;
 
+/**
+ * Post manipulator test.
+ *
+ * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
+ */
 class PostManipulatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreateSetsPostSlug()
-    {
-        $slugizer = $this->getMockSlugizer();
-        $slugizer->expects($this->once())
-            ->method('slugize')
-            ->with($this->equalTo('foo bar'))
-            ->will($this->returnValue('foo-bar'))
-        ;
-
-        $post = $this->getMockPost();
-        $post->expects($this->once())
-            ->method('getTitle')
-            ->will($this->returnValue('foo bar'))
-        ;
-        $post->expects($this->once())
-            ->method('setSlug')
-            ->with($this->equalTo('foo-bar'))
-        ;
-
-        $manipulator = new PostManipulator($this->getMockPostManager(), $this->getMockBlamer(), $slugizer);
-        $manipulator->create($post);
-    }
-
-    public function testCreateIncrementsPostCreatedAt()
-    {
-        $slugizer = $this->getMockSlugizer();
-
-        $post = $this->getMockPost();
-        $post->expects($this->once())
-            ->method('incrementCreatedAt')
-        ;
-
-        $manipulator = new PostManipulator($this->getMockPostManager(), $this->getMockBlamer(), $slugizer);
-        $manipulator->create($post);
-    }
-
     public function testCreatePersistsPost()
     {
-        $slugizer = $this->getMockSlugizer();
         $post = $this->getMockPost();
 
         $postManager = $this->getMockPostManager();
@@ -62,49 +30,12 @@ class PostManipulatorTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($post))
         ;
 
-        $manipulator = new PostManipulator($postManager, $this->getMockBlamer(), $slugizer);
+        $manipulator = new PostManipulator($postManager, $this->getMockBlamer());
         $manipulator->create($post);
-    }
-
-    public function testUpdateSetsPostSlug()
-    {
-        $slugizer = $this->getMockSlugizer();
-        $slugizer->expects($this->once())
-            ->method('slugize')
-            ->with($this->equalTo('foo bar'))
-            ->will($this->returnValue('foo-bar'))
-        ;
-
-        $post = $this->getMockPost();
-        $post->expects($this->once())
-            ->method('getTitle')
-            ->will($this->returnValue('foo bar'))
-        ;
-        $post->expects($this->once())
-            ->method('setSlug')
-            ->with($this->equalTo('foo-bar'))
-        ;
-
-        $manipulator = new PostManipulator($this->getMockPostManager(), $this->getMockBlamer(), $slugizer);
-        $manipulator->update($post);
-    }
-
-    public function testUpdateIncrementsPostUpdatedAt()
-    {
-        $slugizer = $this->getMockSlugizer();
-
-        $post = $this->getMockPost();
-        $post->expects($this->once())
-            ->method('incrementUpdatedAt')
-        ;
-
-        $manipulator = new PostManipulator($this->getMockPostManager(), $this->getMockBlamer(), $slugizer);
-        $manipulator->update($post);
     }
 
     public function testUpdatePersistsPost()
     {
-        $slugizer = $this->getMockSlugizer();
         $post = $this->getMockPost();
 
         $postManager = $this->getMockPostManager();
@@ -113,13 +44,12 @@ class PostManipulatorTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($post))
         ;
 
-        $manipulator = new PostManipulator($postManager, $this->getMockBlamer(), $slugizer);
+        $manipulator = new PostManipulator($postManager, $this->getMockBlamer());
         $manipulator->update($post);
     }
 
     public function testDeleteRemovesPost()
     {
-        $slugizer = $this->getMockSlugizer();
         $post = $this->getMockPost();
 
         $postManager = $this->getMockPostManager();
@@ -128,7 +58,7 @@ class PostManipulatorTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($post))
         ;
 
-        $manipulator = new PostManipulator($postManager, $this->getMockBlamer(), $slugizer);
+        $manipulator = new PostManipulator($postManager, $this->getMockBlamer());
         $manipulator->delete($post);
     }
 
@@ -143,10 +73,6 @@ class PostManipulatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $postManager->expects($this->any())
-            ->method('persistPost')
-            ->will($this->returnValue(null))
-        ;
 
         return $postManager;
     }
@@ -156,8 +82,4 @@ class PostManipulatorTest extends \PHPUnit_Framework_TestCase
         return $this->getMock('Sylius\Bundle\BloggerBundle\Blamer\PostBlamerInterface');
     }
 
-    private function getMockSlugizer()
-    {
-        return $this->getMock('Sylius\Bundle\BloggerBundle\Inflector\SlugizerInterface');
-    }
 }

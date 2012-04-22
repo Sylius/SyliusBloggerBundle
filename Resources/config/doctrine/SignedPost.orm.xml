@@ -15,12 +15,11 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
 
-    <mapped-superclass name="Sylius\Bundle\BloggerBundle\Entity\Post">
+    <mapped-superclass name="Sylius\Bundle\BloggerBundle\Entity\SignedPost">
         <field name="title" column="title" type="string" />
         <field name="slug" column="slug" type="string">
             <gedmo:slug fields="title" />
         </field>
-        <field name="author" column="author" type="string" />
         <field name="content" column="content" type="text" />
         <field name="published" column="published" type="boolean" />
         <field name="createdAt" column="created_at" type="datetime">

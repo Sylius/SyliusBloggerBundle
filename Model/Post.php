@@ -16,10 +16,12 @@ namespace Sylius\Bundle\BloggerBundle\Model;
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-abstract class Post implements PostInterface
+class Post implements PostInterface
 {
     /**
      * Id.
+     *
+     * @var mixed
      */
     protected $id;
 
@@ -93,6 +95,14 @@ abstract class Post implements PostInterface
     /**
      * {@inheritdoc}
      */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getTitle()
     {
         return $this->title;
@@ -154,11 +164,17 @@ abstract class Post implements PostInterface
         $this->author = $author;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isPublished()
     {
         return $this->published;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setPublished($published)
     {
         $this->published = $published;
@@ -175,6 +191,14 @@ abstract class Post implements PostInterface
     /**
      * {@inheritdoc}
      */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function incrementCreatedAt()
     {
         $this->createdAt = new \DateTime("now");
@@ -186,6 +210,14 @@ abstract class Post implements PostInterface
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setUpdatedAt(\DateTime $updateAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     /**

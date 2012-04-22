@@ -9,19 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Bundle\BloggerBundle\Inflector;
+namespace Sylius\Bundle\BloggerBundle\Entity;
+
+use Sylius\Bundle\BloggerBundle\Model\SignedPost as BaseSignedPost;
 
 /**
- * An object that creates a slug of given string.
+ * Post entity.
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-interface SlugizerInterface
+class SignedPost extends BaseSignedPost
 {
-    /**
-     * Slugizes a string.
-     *
-     * @param string $string
-     */
-    function slugize($string);
 }

@@ -11,16 +11,17 @@
 
 namespace Sylius\Bundle\BloggerBundle\Entity;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Sylius\Bundle\BloggerBundle\Model\PostInterface;
 use Sylius\Bundle\BloggerBundle\Model\PostManager as BasePostManager;
 use Sylius\Bundle\BloggerBundle\Sorting\SorterInterface;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
 
 /**
  * Post manager.
+ * Doctrine ORM driver implementation.
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
@@ -43,8 +44,8 @@ class PostManager extends BasePostManager
     /**
      * Constructor.
      *
-     * @param EntityManager	 $entityManager
-     * @param string	 	 $class
+     * @param EntityManager $entityManager
+     * @param string        $class
      */
     public function __construct(EntityManager $entityManager, $class)
     {
@@ -60,7 +61,30 @@ class PostManager extends BasePostManager
     public function createPost()
     {
         $class = $this->getClass();
+
         return new $class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createPaginator(SorterInterface $sorter = null, $filterNotPublished = true)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC')
+        ;
+
+        if ($filterNotPublished) {
+            $queryBuilder->andWhere('p.published = true');
+        } else {
+            $queryBuilder->andWhere('p.published = false');
+        }
+
+        if (null !== $sorter) {
+            $sorter->sort($queryBuilder);
+        }
+
+        return new Pagerfanta(new DoctrineORMAdapter($queryBuilder->getQuery()));
     }
 
     /**
@@ -111,23 +135,5 @@ class PostManager extends BasePostManager
     public function findPostsBy(array $criteria)
     {
         return $this->repository->findBy($criteria);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createPaginator(SorterInterface $sorter = null)
-    {
-        $queryBuilder = $this->entityManager->createQueryBuilder()
-            ->select('p')
-            ->from($this->class, 'p')
-            ->where('p.published = true')
-            ->orderBy('p.createdAt', 'DESC');
-
-        if (null !== $sorter) {
-            $sorter->sort($queryBuilder);
-        }
-
-        return new Pagerfanta(new DoctrineORMAdapter($queryBuilder->getQuery()));
     }
 }

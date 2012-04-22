@@ -41,6 +41,17 @@ interface PostManipulatorInterface
      */
     function delete(PostInterface $post);
 
+    /**
+     * Mark post as published.
+     *
+     * @param PostInterface $post
+     */
     function publish(PostInterface $post);
+
+    /**
+     * Mark post as not published.
+     *
+     * @param PostInterface $post
+     */
     function unpublish(PostInterface $post);
 }

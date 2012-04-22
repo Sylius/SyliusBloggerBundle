@@ -34,19 +34,16 @@ class SyliusBloggerExtension extends Extension
         $configuration = new Configuration();
 
         $config = $processor->processConfiguration($configuration, $config);
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/container'));
 
         if (!in_array($config['driver'], SyliusBloggerBundle::getSupportedDrivers())) {
             throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported for this extension.', $config['driver']));
         }
-
         if (!in_array($config['engine'], array('php', 'twig'))) {
             throw new \InvalidArgumentException(sprintf('Engine "%s" is unsupported for this extension.', $config['engine']));
         }
 
         $loader->load(sprintf('driver/%s.xml', $config['driver']));
-        $loader->load(sprintf('engine/%s.xml', $config['engine']));
 
         $container->setParameter('sylius_blogger.driver', $config['driver']);
         $container->setParameter('sylius_blogger.engine', $config['engine']);
@@ -58,7 +55,6 @@ class SyliusBloggerExtension extends Extension
             'blamers',
             'controllers',
             'forms',
-            'inflectors',
             'manipulators'
         );
 

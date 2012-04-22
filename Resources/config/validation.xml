@@ -20,25 +20,25 @@
     <class name="Sylius\Bundle\BloggerBundle\Model\Post">
         <property name="title">
             <constraint name="NotBlank">
-                <option name="message">Please enter a post title</option>
+                <option name="message">sylius_blogger.validation.post.title.not_blank</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
-                <option name="message">The post title is too short</option>
+                <option name="message">sylius_blogger.validation.post.title.min_length</option>
             </constraint>
             <constraint name="MaxLength">
                 <option name="limit">255</option>
-                <option name="message">The post title is too long</option>
+                <option name="message">sylius_blogger.validation.post.title.max_length</option>
             </constraint>
         </property>
 
         <property name="content">
             <constraint name="NotBlank">
-                <option name="message">Please enter some post content</option>
+                <option name="message">sylius_blogger.validation.post.content.not_blank</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">3</option>
-                <option name="message">The post content is too short</option>
+                <option name="message">sylius_blogger.validation.post.content.min_length</option>
             </constraint>
         </property>
     </class>

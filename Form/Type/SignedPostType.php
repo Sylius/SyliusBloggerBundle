@@ -11,7 +11,7 @@
 
 namespace Sylius\Bundle\BloggerBundle\Form\Type;
 
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Signed post form type.
@@ -23,7 +23,7 @@ class SignedPostType extends PostType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 

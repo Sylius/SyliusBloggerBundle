@@ -13,6 +13,7 @@ namespace Sylius\Bundle\BloggerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Post form type.
@@ -47,18 +48,22 @@ class PostType extends AbstractType
             ->add('title', 'text')
             ->add('author', 'text')
             ->add('content', 'textarea')
-            ->add('published', 'checkbox', array('required' => false))
+            ->add('published', 'checkbox', array(
+                'required' => false
+            ))
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getDefaultOptions()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
-            'data_class' => $this->dataClass,
-        );
+        $resolver
+            ->setDefaults(array(
+                'data_class' => $this->dataClass,
+            ))
+        ;
     }
 
     /**

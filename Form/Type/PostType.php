@@ -45,11 +45,18 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text')
-            ->add('author', 'text')
-            ->add('content', 'textarea')
+            ->add('title', 'text', array(
+                'label' => 'sylius_blogger.label.post.title'
+            ))
+            ->add('author', 'text', array(
+                'label' => 'sylius_blogger.label.post.author'
+            ))
+            ->add('content', 'textarea', array(
+                'label' => 'sylius_blogger.label.post.content'
+            ))
             ->add('published', 'checkbox', array(
-                'required' => false
+                'required' => false,
+                'label'    => 'sylius_blogger.label.post.published'
             ))
         ;
     }

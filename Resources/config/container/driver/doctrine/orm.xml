@@ -18,17 +18,28 @@
 >
 
     <parameters>
-        <parameter key="sylius_blogger.manager.post.class">Sylius\Bundle\BloggerBundle\Entity\PostManager</parameter>
+        <parameter key="sylius_blogger.repository.post.class">Sylius\Bundle\ResourceBundle\Doctrine\ORM\ResourceRepository</parameter>
+        <parameter key="sylius_blogger.manager.post.class">Sylius\Bundle\ResourceBundle\Doctrine\ResourceManager</parameter>
         <parameter key="sylius_blogger.sorter.post.class">Sylius\Bundle\BloggerBundle\Sorting\ORM\PostSorter</parameter>
     </parameters>
 
     <services>
-        <!-- managers... -->
+        <service id="sylius_blogger.doctrine.repository.post"
+                factory-service="doctrine.orm.default_entity_manager"
+                factory-method="getRepository"
+                class="Doctrine\ORM\EntityRepository"
+                public="false"
+        >
+            <argument>%sylius_blogger.model.post.class%</argument>
+        </service>
+        <service id="sylius_blogger.repository.post" class="%sylius_blogger.repository.post.class%">
+            <argument type="service" id="sylius_blogger.doctrine.repository.post" />
+            <argument>%sylius_blogger.model.post.class%</argument>
+        </service>
         <service id="sylius_blogger.manager.post" class="%sylius_blogger.manager.post.class%">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument>%sylius_blogger.model.post.class%</argument>
         </service>
-
         <!-- sorters... -->
         <service id="sylius_blogger.sorter.post" class="%sylius_blogger.sorter.post.class%">
             <call method="setContainer">

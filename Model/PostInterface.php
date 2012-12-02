@@ -11,27 +11,16 @@
 
 namespace Sylius\Bundle\BloggerBundle\Model;
 
+use Sylius\Bundle\ResourceBundle\Model\ResourceInterface;
+
 /**
  * Post model interface.
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
+ * @author Саша Стаменковић <umpirsky@gmail.com>
  */
-interface PostInterface
+interface PostInterface extends ResourceInterface
 {
-    /**
-     * Returns post id.
-     *
-     * @return mixed
-     */
-    function getId();
-
-    /**
-     * Set post id.
-     *
-     * @param mixed $id
-     */
-    function setId($id);
-
     /**
      * Returns post title.
      *

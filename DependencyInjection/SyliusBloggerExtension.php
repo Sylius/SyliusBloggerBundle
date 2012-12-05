@@ -34,89 +34,33 @@ class SyliusBloggerExtension extends Extension
         $configuration = new Configuration();
 
         $config = $processor->processConfiguration($configuration, $config);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/container'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        if (!in_array($config['driver'], SyliusBloggerBundle::getSupportedDrivers())) {
-            throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported for this extension.', $config['driver']));
+        $driver = $config['driver'];
+        $engine = $config['engine'];
+
+        if (!in_array($driver, SyliusBloggerBundle::getSupportedDrivers())) {
+            throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported by SyliusBloggerBundle', $config['driver']));
         }
-        if (!in_array($config['engine'], array('php', 'twig'))) {
-            throw new \InvalidArgumentException(sprintf('Engine "%s" is unsupported for this extension.', $config['engine']));
-        }
 
-        $loader->load(sprintf('driver/%s.xml', $config['driver']));
+        $loader->load(sprintf('driver/%s.xml', $driver));
 
-        $container->setParameter('sylius_blogger.driver', $config['driver']);
-        $container->setParameter('sylius_blogger.engine', $config['engine']);
+        $container->setParameter('sylius_blogger.driver', $driver);
+        $container->setParameter('sylius_blogger.engine', $engine);
 
-        $container->setParameter('sylius_blogger.pagination', !$config['pagination']['disable']);
-        $container->setParameter('sylius_blogger.pagination.mpp', $config['pagination']['mpp']);
-
-        $configurations = array(
-            'blamers',
-            'controllers',
-            'forms',
-        );
-
-        foreach ($configurations as $basename) {
-            $loader->load(sprintf('%s.xml', $basename));
-        }
+        $loader->load('services.xml');
 
         $container->setAlias('sylius_blogger.blamer.post', $config['services']['blamer']['post']);
 
-        $this->remapParametersNamespaces($config['classes'], $container, array(
-            'controller'  => 'sylius_blogger.controller.%s.class',
-            'inflector'   => 'sylius_blogger.inflector.%s.class',
-            'model'       => 'sylius_blogger.model.%s.class'
-        ));
+        $classes = $config['classes']['post'];
 
-        $this->remapParametersNamespaces($config['classes']['form'], $container, array(
-            'type' => 'sylius_blogger.form.type.%s.class',
-        ));
-    }
+        $container->setParameter('sylius_blogger.model.post.class', $classes['model']);
+        $container->setParameter('sylius_blogger.controller.post.class', $classes['model']);
+        $container->setParameter('sylius_blogger.form.type.post.class', $classes['form']);
 
-    /**
-     * Remap parameters.
-     *
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param array            $map
-     */
-    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
-    {
-        foreach ($map as $name => $paramName) {
-            if (isset($config[$name])) {
-                $container->setParameter($paramName, $config[$name]);
-            }
+        if (isset($classes['repository'])) {
+            $container->setParameter('sylius_blogger.repository.post.class', $classes['repository']);
         }
     }
 
-    /**
-     * Remap parameter namespaces.
-     *
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param array            $map
-     */
-    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
-    {
-        foreach ($namespaces as $ns => $map) {
-            if ($ns) {
-                if (!isset($config[$ns])) {
-                    continue;
-                }
-                $namespaceConfig = $config[$ns];
-            } else {
-                $namespaceConfig = $config;
-            }
-            if (is_array($map)) {
-                $this->remapParameters($namespaceConfig, $container, $map);
-            } else {
-                foreach ($namespaceConfig as $name => $value) {
-                    if (null !== $value) {
-                        $container->setParameter(sprintf($map, $name), $value);
-                    }
-                }
-            }
-        }
-    }
 }

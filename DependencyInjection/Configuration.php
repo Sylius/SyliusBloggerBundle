@@ -35,15 +35,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('driver')->isRequired()->end()
+                ->scalarNode('driver')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('engine')->defaultValue('twig')->end()
-                ->arrayNode('pagination')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('disable')->defaultValue(false)->end()
-                        ->scalarNode('mpp')->defaultValue(10)->end()
-                    ->end()
-                ->end()
             ->end();
 
         $this->addClassesSection($rootNode);
@@ -65,36 +58,19 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('model')
+                        ->arrayNode('post')
                             ->isRequired()
                             ->children()
-                                ->scalarNode('post')->isRequired()->cannotBeEmpty()->end()
+                                ->scalarNode('model')->isRequired()->cannotBeEmpty()->end()
+                                ->scalarNode('controller')->defaultValue('Sylius\\Bundle\\ResourceBundle\\Controller\\ResourceController')->end()
+                                ->scalarNode('repository')->end()
+                                ->scalarNode('form')->defaultValue('Sylius\\Bundle\\BloggerBundle\\Form\\Type\\PostType')->end()
                             ->end()
                         ->end()
-                        ->arrayNode('controller')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('post')->defaultValue('Sylius\\Bundle\\ResourceBundle\\Controller\\ResourceController')->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('form')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->arrayNode('type')
-                                    ->addDefaultsIfNotSet()
-                                    ->children()
-                                        ->scalarNode('post')->defaultValue('Sylius\\Bundle\\BloggerBundle\\Form\\Type\\PostType')->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('inflector')
-                        ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('slugizer')->defaultValue('Sylius\\Bundle\\BloggerBundle\\Inflector\\Slugizer')->end()
-                            ->end()
-                        ->end()
-                    ->end();
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 
     /**
@@ -115,6 +91,9 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('post')->defaultValue('sylius_blogger.blamer.post.nooop')->end()
                             ->end()
                         ->end()
-                    ->end();
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }

@@ -16,10 +16,11 @@
             "homepage": "https://github.com/Sylius/SyliusBloggerBundle/contributors"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.2",
 
-        "symfony/symfony":                 "2.1.*",
+        "sylius/resource-bundle":          "*",
         "white-october/pagerfanta-bundle": "*",
         "stof/doctrine-extensions-bundle": "*"
     },

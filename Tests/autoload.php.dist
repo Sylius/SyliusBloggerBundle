@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-if (!file_exists($file = __DIR__.'/../vendor/.composer/autoload.php')) {
+if (!file_exists($file = __DIR__.'/../vendor/autoload.php')) {
     die("Please install dev dependencies using Composer to run the test suite. \n");
 } else {
     require_once $file;
@@ -22,6 +22,7 @@ spl_autoload_register(function($class) {
             return false;
         }
         require_once $path;
+
         return true;
     }
 });

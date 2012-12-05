@@ -18,12 +18,10 @@
 >
 
     <services>
-        <service id="sylius_blogger.controller.frontend.post" class="%sylius_blogger.controller.frontend.post.class%">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
-        <service id="sylius_blogger.controller.backend.post" class="%sylius_blogger.controller.backend.post.class%">
+        <service id="sylius_blogger.controller.post" class="%sylius_blogger.controller.post.class%">
+            <argument>sylius_blogger</argument>
+            <argument>post</argument>
+            <argument>SyliusBloggerBundle:Post</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>

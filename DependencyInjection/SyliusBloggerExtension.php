@@ -55,7 +55,6 @@ class SyliusBloggerExtension extends Extension
             'blamers',
             'controllers',
             'forms',
-            'manipulators'
         );
 
         foreach ($configurations as $basename) {
@@ -65,14 +64,9 @@ class SyliusBloggerExtension extends Extension
         $container->setAlias('sylius_blogger.blamer.post', $config['services']['blamer']['post']);
 
         $this->remapParametersNamespaces($config['classes'], $container, array(
+            'controller'  => 'sylius_blogger.controller.%s.class',
             'inflector'   => 'sylius_blogger.inflector.%s.class',
-            'manipulator' => 'sylius_blogger.manipulator.%s.class',
             'model'       => 'sylius_blogger.model.%s.class'
-        ));
-
-        $this->remapParametersNamespaces($config['classes']['controller'], $container, array(
-            'backend'  => 'sylius_blogger.controller.backend.%s.class',
-            'frontend' => 'sylius_blogger.controller.frontend.%s.class'
         ));
 
         $this->remapParametersNamespaces($config['classes']['form'], $container, array(

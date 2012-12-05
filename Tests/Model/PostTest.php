@@ -11,8 +11,6 @@
 
 namespace Sylius\Bundle\BloggerBundle\Tests\Model;
 
-use Sylius\Bundle\BloggerBundle\Model\Post;
-
 class PostTest extends \PHPUnit_Framework_TestCase
 {
     public function testTitle()

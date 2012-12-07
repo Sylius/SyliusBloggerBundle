@@ -55,7 +55,7 @@ class SyliusBloggerExtension extends Extension
         $classes = $config['classes']['post'];
 
         $container->setParameter('sylius_blogger.model.post.class', $classes['model']);
-        $container->setParameter('sylius_blogger.controller.post.class', $classes['model']);
+        $container->setParameter('sylius_blogger.controller.post.class', $classes['controller']);
         $container->setParameter('sylius_blogger.form.type.post.class', $classes['form']);
 
         if (isset($classes['repository'])) {

@@ -207,7 +207,7 @@ class Post implements PostInterface
     /**
      * {@inheritdoc}
      */
-    public function setUpdatedAt(\DateTime $updateAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }

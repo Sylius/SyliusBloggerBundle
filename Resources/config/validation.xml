@@ -31,6 +31,11 @@
                 <option name="message">sylius_blogger.validation.post.title.max_length</option>
             </constraint>
         </property>
+        <property name="author">
+            <constraint name="NotBlank">
+                <option name="message">sylius_blogger.validation.post.author.not_blank</option>
+              </constraint>
+        </property>
 
         <property name="content">
             <constraint name="NotBlank">

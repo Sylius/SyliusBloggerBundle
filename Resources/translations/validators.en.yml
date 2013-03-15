@@ -1,0 +1,9 @@
+sylius_blogger:
+    validation:
+        post:
+            title:
+              not_blank: Please enter post title.
+            author:
+              not_blank: Please enter post author.
+            content:
+              not_blank: Please enter post content.

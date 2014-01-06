@@ -1,6 +1,8 @@
 SyliusBloggerBundle
 ===================
 
+**WARNING! This bundle is DEPRACATED and NOT MAINTAINED!** Please use appropriate software/bundles as an alternative.
+
 Relatively simple blog bundle that allows you to setup blog/news system quickly for your next Symfony2 application.
 
 **This bundle is compatible only with 2.1.x branch of Symfony2**.
